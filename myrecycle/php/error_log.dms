@@ -1,0 +1,20 @@
+[07-Nov-2019 00:21:37 Asia/Kuala_Lumpur] PHP Warning:  file_put_contents(../profile/.jpg): failed to open stream: No such file or directory in /home2/lawlieta/public_html/myhelper/php/register.php on line 13
+[07-Nov-2019 00:42:23 Asia/Kuala_Lumpur] PHP Warning:  file_put_contents(../profile/cheehau@gmail.com.jpg): failed to open stream: No such file or directory in /home2/lawlieta/public_html/myhelper/php/register.php on line 13
+[07-Nov-2019 01:22:42 Asia/Kuala_Lumpur] PHP Warning:  mail(): headers parameter must be string or array in /home2/lawlieta/public_html/myhelper/php/register.php on line 25
+[12-Nov-2019 01:10:41 Asia/Kuala_Lumpur] PHP Fatal error:  Uncaught Error: Call to undefined function mysql_connect() in /home2/lawlieta/public_html/myrecycle_user/php/resetpw.php:6
+Stack trace:
+#0 {main}
+  thrown in /home2/lawlieta/public_html/myrecycle_user/php/resetpw.php on line 6
+[12-Nov-2019 10:11:00 Asia/Kuala_Lumpur] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home2/lawlieta/public_html/myrecycle_user/php/resetpw.php on line 27
+[12-Nov-2019 10:11:07 Asia/Kuala_Lumpur] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home2/lawlieta/public_html/myrecycle_user/php/resetpw.php on line 27
+[12-Nov-2019 10:11:25 Asia/Kuala_Lumpur] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home2/lawlieta/public_html/myrecycle_user/php/resetpw.php on line 28
+[12-Nov-2019 10:11:27 Asia/Kuala_Lumpur] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home2/lawlieta/public_html/myrecycle_user/php/resetpw.php on line 28
+[12-Nov-2019 10:11:34 Asia/Kuala_Lumpur] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home2/lawlieta/public_html/myrecycle_user/php/resetpw.php on line 28
+[12-Nov-2019 14:46:38 Asia/Kuala_Lumpur] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/lawlieta/public_html/myrecycle_user/php/verifycode.php:4
+Stack trace:
+#0 {main}
+  thrown in /home2/lawlieta/public_html/myrecycle_user/php/verifycode.php on line 4
+[12-Nov-2019 14:46:56 Asia/Kuala_Lumpur] PHP Fatal error:  Uncaught Error: Function name must be a string in /home2/lawlieta/public_html/myrecycle_user/php/verifycode.php:4
+Stack trace:
+#0 {main}
+  thrown in /home2/lawlieta/public_html/myrecycle_user/php/verifycode.php on line 4
