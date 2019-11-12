@@ -5,6 +5,10 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:flutter/services.dart';
 import 'registerform.dart';
 import 'resetpass.dart';
+import 'package:http/http.dart' as http;
+import 'mainscreen.dart';
+
+String urlLogin = "http://lawlietaini.com/myrecycle_user/php/loginuser.php";
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -18,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password = "";
   bool _checkBoxValue = false;
   int countE = 0;
+  var passKey = GlobalKey<FormFieldState>();
 
   @override
   void initState() {
@@ -38,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 80),
+                    padding: EdgeInsets.only(top: 70),
                     child: Image.asset(
                       'assets/images/logo2.png',
                       scale: 1.5,
@@ -50,12 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Column(children: <Widget>[
                       TextField(
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
                           fontFamily: "Poppins-Bold",
                         ),
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.email),
+                          border: OutlineInputBorder(),
                           labelText: 'Email',
                         ),
                         controller: _emcrontroller,
@@ -65,13 +70,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextField(
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
                           fontFamily: "Poppins-Bold",
                         ),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.security),
+                          border: OutlineInputBorder(),
                           labelText: 'Password',
                         ),
                         controller: _pwcontroller,
@@ -93,7 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Text(
                           'Remember me',
-                          style: TextStyle(fontSize: 16, letterSpacing: 0.6),
+                          style: TextStyle(
+                              fontSize: 15,
+                              letterSpacing: 0.5,
+                              color: Colors.blueAccent),
                         ),
                       ],
                     ),
@@ -105,17 +113,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Log in',
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
-                            letterSpacing: 0.8),
+                            fontSize: 20,
+                            letterSpacing: 0.6),
                       ),
                       minWidth: 350,
                       height: 50,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
-                      onPressed: () {
-                        setState(() {});
-                      },
-                      color: Colors.greenAccent[400],
+                      onPressed: _onLogin,
+                      color: Colors.greenAccent[700],
                     ),
                   ),
                   SizedBox(
@@ -126,9 +132,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Expanded(
-                          child: Divider(),
-                        ),
                         SizedBox(
                           width: 8,
                         ),
@@ -143,17 +146,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Forgot password?',
                             style: TextStyle(
                                 color: Colors.blue,
-                                fontSize: 18,
-                                fontFamily: 'Georgia',
-                                letterSpacing: 0.6),
+                                fontSize: 15,
+                                letterSpacing: 0.6,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(
                           width: 8,
                         ),
-                        Expanded(
-                          child: Divider(),
-                        )
                       ],
                     ),
                   ),
@@ -172,30 +172,51 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 8,
                         ),
                         Text(
+                          'OR',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Expanded(
+                          child: Divider(),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
                           "Don't have account? ",
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 18,
-                            fontFamily: 'Georgia',
+                            fontSize: 15,
                           ),
                         ),
                         GestureDetector(
                           onTap: _Register,
                           child: Text(
-                            'Sign up now >',
+                            'Sign up now.',
                             style: TextStyle(
                                 color: Colors.blue,
-                                fontSize: 18,
-                                fontFamily: 'Georgia',
-                                letterSpacing: 0.7),
+                                fontSize: 15,
+                                fontFamily: "Helvetica, Arial, sans-serif",
+                                letterSpacing: 0.7,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                         SizedBox(
                           width: 8,
                         ),
-                        Expanded(
-                          child: Divider(),
-                        )
                       ],
                     ),
                   ),
@@ -275,5 +296,36 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isEmailValid(String email) {
     return RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+  }
+
+  void _onLogin() {
+    _email = _emcrontroller.text;
+    _password = _pwcontroller.text;
+    if (_isEmailValid(_email) && (_password.length > 4)) {
+      ProgressDialog pr = new ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: false);
+      pr.style(message: "Log in");
+      pr.show();
+      http.post(urlLogin, body: {
+        "email": _email,
+        "password": _password,
+      }).then((res) {
+        print(res.statusCode);
+        Toast.show(res.body, context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        if (res.body == "success") {
+          pr.dismiss();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MainScreen(email: _email)));
+        } else {
+          pr.dismiss();
+        }
+      }).catchError((err) {
+        pr.dismiss();
+        print(err);
+      });
+    } else {}
   }
 }
