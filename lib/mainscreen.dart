@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     tabs = [
-      TabScreen(),
+      TabScreen(email: widget.email,),
       TabScreen2(),
       TabScreen3(),
       TabScreen4(),

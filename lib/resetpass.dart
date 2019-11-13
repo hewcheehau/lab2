@@ -362,186 +362,212 @@ class _ResetPassState extends State<ResetPass> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        child: Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        backgroundColor: Colors.green.shade800,
-        title: Text(
-          'Password Reset',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Reset your password now',
-                  style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.6),
+        onWillPop: ()=>_showWarning(context),
+                child: Scaffold(
+              resizeToAvoidBottomPadding: false,
+              appBar: AppBar(
+                backgroundColor: Colors.green.shade800,
+                title: Text(
+                  'Password Reset',
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Your email: ${widget.email}',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.6),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                'Type your new password',
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextFormField(
-                controller: _pwcontroller,
-                obscureText: true,
-                onFieldSubmitted: (value) {
-                  if (value.isEmpty || _pwcontroller.text.length > 5) {
-                    _validate = true;
-                    return 'empty';
-                  }
-                },
-                validator: (value) {
-                  if (value.isEmpty || _pwcontroller.text.length < 5) {
-                    return "password should be more than 5 characters";
-                  }
-                },
-                autovalidate: _validate,
-                decoration: InputDecoration(
-                  labelText: "Type your new password",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                'Type your new password again',
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextFormField(
-                obscureText: true,
-                onFieldSubmitted: (value) {
-                  if (value != _pwcontroller.text) {
-                    _validate = true;
-                    return 'empty';
-                  }
-                },
-                validator: (value) {
-                  if (value != _pwcontroller.text) {
-                    return "Passwords do not match.";
-                  } else {
-                    return null;
-                  }
-                },
-                autovalidate: _validate,
-                decoration: InputDecoration(
-                  labelText: "Enter your new password again",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: RaisedButton(
-                    padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    color: Colors.greenAccent[700],
-                    onPressed: _pressButton,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 20),
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Reset your password now',
+                          style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.6),
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      'Ok',
-                      style: TextStyle(
-                          fontSize: 18,
-                          letterSpacing: 0.6,
-                          color: Colors.white),
+                    SizedBox(
+                      height: 15,
                     ),
-                  )),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 20),
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          'Your email: ${widget.email}',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.6),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 20),
+                      child: Text(
+                        'Type your new password',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: TextFormField(
+                        controller: _pwcontroller,
+                        obscureText: true,
+                        onFieldSubmitted: (value) {
+                          if (value.isEmpty || _pwcontroller.text.length > 5) {
+                            _validate = true;
+                            return 'empty';
+                          }
+                        },
+                        validator: (value) {
+                          if (value.isEmpty || _pwcontroller.text.length < 5) {
+                            return "password should be more than 5 characters";
+                          }
+                        },
+                        autovalidate: _validate,
+                        decoration: InputDecoration(
+                          labelText: "Type your new password",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 20),
+                      child: Text(
+                        'Type your new password again',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: TextFormField(
+                        obscureText: true,
+                        onFieldSubmitted: (value) {
+                          if (value != _pwcontroller.text) {
+                            _validate = true;
+                            return 'empty';
+                          }
+                        },
+                        validator: (value) {
+                          if (value != _pwcontroller.text) {
+                            return "Passwords do not match.";
+                          } else {
+                            return null;
+                          }
+                        },
+                        autovalidate: _validate,
+                        decoration: InputDecoration(
+                          labelText: "Enter your new password again",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: RaisedButton(
+                            padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                            color: Colors.greenAccent[700],
+                            onPressed: _pressButton,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Text(
+                              'Ok',
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  letterSpacing: 0.6,
+                                  color: Colors.white),
+                            ),
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            ));
+          }
+        
+          void _pressButton() {
+            _email = widget.email;
+            _pw = _pwcontroller.text;
+            if (_pw.length > 5) {
+              ProgressDialog rs = ProgressDialog(context,
+                  type: ProgressDialogType.Normal, isDismissible: false);
+              rs.style(message: null);
+              rs.show();
+        
+              http.post(urlReset, body: {
+                "email": _email,
+                "password": _pw,
+              }).then((res) {
+                print(res.statusCode);
+                Toast.show(res.body, context,
+                    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                _emcontroller.text = '';
+                rs.style(message: 'Password changed successfully.');
+                rs.show();
+                rs.dismiss();
+                if (res.body == 'Passwords changed') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => LoginScreen()));
+                }
+              }).catchError((err) {
+                print(err);
+              });
+            } else {
+              Toast.show('Invalid password', context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+              setState(() {
+                _validate = true;
+              });
+            }
+          }
+        
+          Future<bool> _showWarning(BuildContext context) {
+
+            
+  return showDialog(
+        context: context,
+        child: new AlertDialog(
+          title: new Text('You are now in Reset password process'),
+          content: new Text('Are you sure you wanna leave?'),
+          actions: <Widget>[
+            new FlatButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: new Text('No'),
+            ),
+            new FlatButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: new Text('Yes'),
             ),
           ],
         ),
-      ),
-    ));
-  }
+      ) ??
+      false;
+}
 
-  void _pressButton() {
-    _email = widget.email;
-    _pw = _pwcontroller.text;
-    if (_pw.length > 5) {
-      ProgressDialog rs = ProgressDialog(context,
-          type: ProgressDialogType.Normal, isDismissible: false);
-      rs.style(message: null);
-      rs.show();
-
-      http.post(urlReset, body: {
-        "email": _email,
-        "password": _pw,
-      }).then((res) {
-        print(res.statusCode);
-        Toast.show(res.body, context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        _emcontroller.text = '';
-        rs.style(message: 'Password changed successfully.');
-        rs.show();
-        rs.dismiss();
-        if (res.body == 'Passwords changed') {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => LoginScreen()));
-        }
-      }).catchError((err) {
-        print(err);
-      });
-    } else {
-      Toast.show('Invalid password', context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      setState(() {
-        _validate = true;
-      });
-    }
-  }
+  
 }
